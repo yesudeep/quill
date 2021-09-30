@@ -1,0 +1,28 @@
+load("@rules_cc//cc:defs.bzl", "cc_binary")
+
+cc_binary(
+    name = "example_backtrace",
+    srcs = ["example_backtrace.cpp"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//:quill_noexcept",
+    ],
+)
+
+cc_binary(
+    name = "example_configure_backend",
+    srcs = ["example_configure_backend.cpp"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//:quill_noexcept",
+    ],
+)
+
+cc_binary(
+    name = "example_configure_backend",
+    srcs = ["example_configure_backend.cpp"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//:quill_noexcept",
+    ],
+)
