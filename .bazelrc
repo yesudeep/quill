@@ -1,0 +1,28 @@
+# Colorful output.
+run --color=yes
+build --color=yes
+
+# See: https://docs.bazel.build/versions/master/windows.html
+startup --windows_enable_symlinks
+
+# Show errors in the console.
+test --test_output=errors
+test --test_summary=terse
+build --verbose_failures
+
+# Compiler configuration.
+build:cc --cxxopt='-std=c++14'
+build:msvc --cxxopt=/std:c++14
+build:gcc --config=cc
+build:gcc --cxxopt='-fanalyzer'
+build:clang --config=cc
+build:clang --cxxopt='-stdlib=libc++'
+
+# Enable configuration for various compilers based on OS.
+build --enable_platform_specific_config
+build:windows --enable_runfiles
+build:windows --config=msvc
+build:linux   --config=cc
+build:macos   --config=cc
+build:freebsd --config=cc
+build:openbsd --config=cc

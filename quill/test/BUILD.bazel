@@ -1,0 +1,11 @@
+load("@rules_cc//cc:defs.bzl", "cc_test")
+
+cc_test(
+    name = "bounded_spsc_raw_queue_test",
+    srcs = ["BoundedSPSCRawQueueTest.cpp"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//:quill",
+        "//quill/test/bundled:doctest",
+    ],
+)

@@ -21,7 +21,6 @@ cc_library(
     ]),
     defines = [
         "QUILL_NO_EXCEPTIONS=1",
-        "QUILL_FMT_EXTERNAL=0",
     ],
     includes = [
         "quill/include",
@@ -34,6 +33,9 @@ cc_library(
             "-lpthread",
         ],
     }),
+    deps = [
+        "//quill/include/quill/bundled:fmt_internal",
+    ],
 )
 
 cc_library(
@@ -46,7 +48,6 @@ cc_library(
     ]),
     defines = [
         "QUILL_NO_EXCEPTIONS=0",
-        "QUILL_FMT_EXTERNAL=0",
     ],
     includes = [
         "quill/include",
@@ -59,4 +60,7 @@ cc_library(
             "-lpthread",
         ],
     }),
+    deps = [
+        "//quill/include/quill/bundled:fmt_internal",
+    ],
 )

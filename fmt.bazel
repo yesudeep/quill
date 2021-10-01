@@ -1,0 +1,15 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+licenses(["notice"])  # Apache version 2.0
+
+cc_library(
+    name = "fmt",
+    hdrs = glob([
+        "include/fmt/*.h",
+    ]),
+    defines = [
+         "FMT_HEADER_ONLY=1",
+    ],
+    includes = ["include"],
+    visibility = ["//visibility:public"],
+)
