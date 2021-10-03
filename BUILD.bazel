@@ -1,0 +1,65 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+licenses(["notice"])  # MIT
+
+exports_files(["LICENSE"])
+
+config_setting(
+    name = "platform_windows",
+    constraint_values = [
+        "@platforms//os:windows",
+    ],
+)
+
+cc_library(
+    name = "internal_fmt",
+    hdrs = glob(["quill/include/quill/bundled/fmt/**/*.h"]),
+    srcs = glob(["quill/src/quill/bundled/fmt/**/*.h"]),
+    includes = [
+        "quill/include/quill/bundled",
+    ],
+    linkstatic = True,
+)
+
+cc_library(
+    name = "quill",
+    hdrs = glob(["quill/include/**/*.h"]),
+    srcs = glob(["quill/src/**/*.cpp"]),
+    defines = [
+        "QUILL_DISABLE_NON_PREFIXED_MACROS=1",   # Avoid ambiguity by default.
+    ],
+    includes = [
+        "quill/include",
+    ],
+    linkopts = select({
+        ":platform_windows": [],
+        "//conditions:default": ["-lpthread"],
+    }),
+    linkstatic = True,
+    visibility = ["//visibility:public"],
+    deps = [
+        ":internal_fmt",
+    ],
+)
+
+cc_library(
+    name = "quill_noexcept",
+    hdrs = glob(["quill/include/**/*.h"]),
+    srcs = glob(["quill/src/**/*.cpp"]),
+    defines = [
+        "QUILL_NO_EXCEPTIONS=1",
+        "QUILL_DISABLE_NON_PREFIXED_MACROS=1",   # Avoid ambiguity by default.
+    ],
+    includes = [
+        "quill/include",
+    ],
+    linkopts = select({
+        ":platform_windows": [],
+        "//conditions:default": ["-lpthread"],
+    }),
+    linkstatic = True,
+    visibility = ["//visibility:public"],
+    deps = [
+        ":internal_fmt",
+    ],
+)
