@@ -1,0 +1,67 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+cc_library(
+    name = "fmt_internal",
+    srcs = glob(["src/quill/bundled/fmt/**/*.cpp"]),
+    hdrs = glob(["include/quill/bundled/fmt/**/*.h"]),
+    includes = [
+        "include/quill/bundled",
+    ],
+    linkstatic = True,
+)
+
+cc_library(
+    name = "quill",
+    srcs = glob([
+        "src/**/*.cpp",
+    ], exclude = glob(["src/quill/bundled/**"])),
+    hdrs = glob([
+        "include/**/*.h",
+    ], exclude = glob(["src/quill/bundled/**"])),
+    defines = [
+        #"QUILL_NO_EXCEPTIONS=1",
+        #"QUILL_DISABLE_NON_PREFIX_MACROS=1",
+    ],
+    includes = [
+        "include",
+    ],
+    linkopts = select({
+        "//:platform_windows": [],
+        "//conditions:default": [
+            "-lpthread",
+        ],
+    }),
+    linkstatic = True,
+    visibility = ["//visibility:public"],
+    deps = [
+        ":fmt_internal",
+    ],
+)
+
+cc_library(
+    name = "quill_noexcept",
+    srcs = glob([
+        "src/**/*.cpp",
+    ], exclude = glob(["src/quill/bundled/**"])),
+    hdrs = glob([
+        "include/**/*.h",
+    ], exclude = glob(["src/quill/bundled/**"])),
+    defines = [
+        "QUILL_NO_EXCEPTIONS=1",
+        #"QUILL_DISABLE_NON_PREFIX_MACROS=1",
+    ],
+    includes = [
+        "include",
+    ],
+    linkopts = select({
+        "//:platform_windows": [],
+        "//conditions:default": [
+            "-lpthread",
+        ],
+    }),
+    linkstatic = True,
+    visibility = ["//visibility:public"],
+    deps = [
+        ":fmt_internal",
+    ],
+)

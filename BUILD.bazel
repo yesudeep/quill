@@ -1,4 +1,3 @@
-load("@rules_cc//cc:defs.bzl", "cc_library")
 
 licenses(["notice"])  # MIT
 
@@ -11,66 +10,3 @@ config_setting(
     ],
 )
 
-cc_library(
-    name = "fmt_internal",
-    srcs = glob(["quill/src/quill/bundled/fmt/**/*.h"]),
-    hdrs = glob(["quill/include/quill/bundled/fmt/**/*.h"]),
-    includes = [
-        "quill/include/quill/bundled",
-    ],
-    linkstatic = True,
-)
-
-cc_library(
-    name = "quill",
-    srcs = glob([
-        "quill/src/**/*.cpp",
-    ]),
-    hdrs = glob([
-        "quill/include/**/*.h",
-    ]),
-    defines = [
-        #"QUILL_NO_EXCEPTIONS=1",
-    ],
-    includes = [
-        "quill/include",
-    ],
-    linkopts = select({
-        "//:platform_windows": [],
-        "//conditions:default": [
-            "-lpthread",
-        ],
-    }),
-    linkstatic = True,
-    visibility = ["//visibility:public"],
-    deps = [
-        ":fmt_internal",
-    ],
-)
-
-cc_library(
-    name = "quill_noexcept",
-    srcs = glob([
-        "quill/src/**/*.cpp",
-    ]),
-    hdrs = glob([
-        "quill/include/**/*.h",
-    ]),
-    defines = [
-        "QUILL_NO_EXCEPTIONS=1",
-    ],
-    includes = [
-        "quill/include",
-    ],
-    linkopts = select({
-        "//:platform_windows": [],
-        "//conditions:default": [
-            "-lpthread",
-        ],
-    }),
-    linkstatic = True,
-    visibility = ["//visibility:public"],
-    deps = [
-        ":fmt_internal",
-    ],
-)
