@@ -12,9 +12,9 @@ config_setting(
 )
 
 cc_library(
-    name = "internal_fmt",
-    hdrs = glob(["quill/include/quill/bundled/fmt/**/*.h"]),
+    name = "fmt_internal",
     srcs = glob(["quill/src/quill/bundled/fmt/**/*.h"]),
+    hdrs = glob(["quill/include/quill/bundled/fmt/**/*.h"]),
     includes = [
         "quill/include/quill/bundled",
     ],
@@ -23,43 +23,54 @@ cc_library(
 
 cc_library(
     name = "quill",
-    hdrs = glob(["quill/include/**/*.h"]),
-    srcs = glob(["quill/src/**/*.cpp"]),
+    srcs = glob([
+        "quill/src/**/*.cpp",
+    ]),
+    hdrs = glob([
+        "quill/include/**/*.h",
+    ]),
     defines = [
-        "QUILL_DISABLE_NON_PREFIXED_MACROS=1",   # Avoid ambiguity by default.
+        "QUILL_NO_EXCEPTIONS=1",
     ],
     includes = [
         "quill/include",
     ],
     linkopts = select({
-        ":platform_windows": [],
-        "//conditions:default": ["-lpthread"],
+        "//:platform_windows": [],
+        "//conditions:default": [
+            "-lpthread",
+        ],
     }),
     linkstatic = True,
     visibility = ["//visibility:public"],
     deps = [
-        ":internal_fmt",
+        ":fmt_internal",
     ],
 )
 
 cc_library(
     name = "quill_noexcept",
-    hdrs = glob(["quill/include/**/*.h"]),
-    srcs = glob(["quill/src/**/*.cpp"]),
+    srcs = glob([
+        "quill/src/**/*.cpp",
+    ]),
+    hdrs = glob([
+        "quill/include/**/*.h",
+    ]),
     defines = [
-        "QUILL_NO_EXCEPTIONS=1",
-        "QUILL_DISABLE_NON_PREFIXED_MACROS=1",   # Avoid ambiguity by default.
+        "QUILL_NO_EXCEPTIONS=0",
     ],
     includes = [
         "quill/include",
     ],
     linkopts = select({
-        ":platform_windows": [],
-        "//conditions:default": ["-lpthread"],
+        "//:platform_windows": [],
+        "//conditions:default": [
+            "-lpthread",
+        ],
     }),
     linkstatic = True,
     visibility = ["//visibility:public"],
     deps = [
-        ":internal_fmt",
+        ":fmt_internal",
     ],
 )
