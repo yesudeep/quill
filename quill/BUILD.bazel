@@ -2,10 +2,10 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
 
 # cc_library(
 #     name = "fmt",
-#     srcs = glob(["src/quill/bundled/fmt/**/*.cpp"]),
+#     srcs = glob(["src/bundled/fmt/**/*.cc"]),
 #     hdrs = glob(["include/quill/bundled/fmt/**/*.h"]),
 #     includes = [
-#         "include/quill/bundled",
+#         "include",
 #     ],
 #     linkstatic = True,
 # )
@@ -13,9 +13,9 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
 # cc_library(
 #     name = "invoke",
 #     hdrs = glob(["include/quill/bundled/invoke/**/*.h"]),
-#     # includes = [
-#     #     "include",
-#     # ],
+#     includes = [
+#         "include",
+#     ],
 #     linkstatic = True,
 # )
 
@@ -24,14 +24,16 @@ cc_library(
     srcs = glob(
         [
             "src/**/*.cpp",
+            "src/bundled/fmt/format.cc",
+            "src/bundled/fmt/os.cc",
         ],
-        #exclude = glob(["src/quill/bundled/fmt/**"]),
+        #exclude = glob(["src/bundled/**"]),
     ),
     hdrs = glob(
         [
             "include/**/*.h",
         ],
-        #exclude = glob(["include/quill/bundled/fmt/**"]),
+        #exclude = glob(["include/quill/bundled/**"]),
     ),
     defines = [
         #"QUILL_NO_EXCEPTIONS=1",
@@ -49,8 +51,8 @@ cc_library(
     linkstatic = True,
     visibility = ["//visibility:public"],
     deps = [
-        # ":fmt",
-        # ":invoke",
+        #":fmt",
+        #":invoke",
     ],
 )
 
@@ -59,14 +61,16 @@ cc_library(
     srcs = glob(
         [
             "src/**/*.cpp",
+            "src/bundled/fmt/format.cc",
+            "src/bundled/fmt/os.cc",
         ],
-        # exclude = glob(["src/quill/bundled/**"]),
+        #exclude = glob(["src/bundled/**"]),
     ),
     hdrs = glob(
         [
             "include/**/*.h",
         ],
-        # exclude = glob(["include/quill/bundled/**"]),
+        #exclude = glob(["include/quill/bundled/**"]),
     ),
     defines = [
         "QUILL_NO_EXCEPTIONS=1",
@@ -84,7 +88,7 @@ cc_library(
     linkstatic = True,
     visibility = ["//visibility:public"],
     deps = [
-        # ":fmt",
-        # ":invoke",
+        #":fmt",
+        #":invoke",
     ],
 )
