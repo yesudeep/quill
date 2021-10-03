@@ -30,7 +30,7 @@ cc_library(
         "quill/include/**/*.h",
     ]),
     defines = [
-        "QUILL_NO_EXCEPTIONS=1",
+        #"QUILL_NO_EXCEPTIONS=1",
     ],
     includes = [
         "quill/include",
@@ -57,7 +57,7 @@ cc_library(
         "quill/include/**/*.h",
     ]),
     defines = [
-        "QUILL_NO_EXCEPTIONS=0",
+        "QUILL_NO_EXCEPTIONS=1",
     ],
     includes = [
         "quill/include",
