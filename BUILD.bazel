@@ -8,3 +8,57 @@ config_setting(
         "@platforms//os:windows",
     ],
 )
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
+PREFIX = "quill/"
+
+SRCS = glob(
+    [
+        PREFIX + "src/**/*.cpp",
+        PREFIX + "src/bundled/fmt/format.cc",
+        PREFIX + "src/bundled/fmt/os.cc",
+    ],
+)
+
+HDRS = glob(
+    [
+        PREFIX + "include/**/*.h",
+    ],
+)
+
+INCLUDES = [
+    PREFIX + "include",
+]
+
+cc_library(
+    name = "quill",
+    srcs = SRCS,
+    hdrs = HDRS,
+    includes = INCLUDES,
+    linkopts = select({
+        "//:platform_windows": [],
+        "//conditions:default": [
+            "-lpthread",
+        ],
+    }),
+    linkstatic = True,
+    visibility = ["//visibility:public"],
+)
+
+cc_library(
+    name = "quill_noexcept",
+    srcs = SRCS,
+    hdrs = HDRS,
+    includes = INCLUDES,
+    defines = [
+        "QUILL_NO_EXCEPTIONS=1",
+    ],
+    linkopts = select({
+        "//:platform_windows": [],
+        "//conditions:default": [
+            "-lpthread",
+        ],
+    }),
+    linkstatic = True,
+    visibility = ["//visibility:public"],
+)

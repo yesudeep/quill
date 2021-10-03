@@ -4,7 +4,7 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
     name = filename[:-4] + "_noexcept",
     srcs = [filename],
     deps = [
-        "//quill:quill_noexcept",
+        "//:quill_noexcept",
     ],
 ) for filename in glob(["example_*.cpp"])]
 
@@ -12,6 +12,6 @@ load("@rules_cc//cc:defs.bzl", "cc_binary")
     name = filename[:-4],
     srcs = [filename],
     deps = [
-        "//quill",
+        "//:quill",
     ],
 ) for filename in glob(["example_*.cpp"])]
