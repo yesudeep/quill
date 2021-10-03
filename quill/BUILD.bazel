@@ -4,10 +4,19 @@ cc_library(
     name = "fmt_internal",
     srcs = glob(["src/quill/bundled/fmt/**/*.cpp"]),
     hdrs = glob(["include/quill/bundled/fmt/**/*.h"]),
-    includes = [
-        "include/quill/bundled",
-    ],
-    linkstatic = True,
+    # includes = [
+    #     "include/quill/bundled",
+    # ],
+    #linkstatic = True,
+)
+
+cc_library(
+    name = "invoke_internal",
+    hdrs = glob(["include/quill/bundled/invoke/**/*.h"]),
+    # includes = [
+    #     "include/quill/bundled",
+    # ],
+    #linkstatic = True,
 )
 
 cc_library(
@@ -35,6 +44,7 @@ cc_library(
     visibility = ["//visibility:public"],
     deps = [
         ":fmt_internal",
+        ":invoke_internal",
     ],
 )
 
@@ -63,5 +73,6 @@ cc_library(
     visibility = ["//visibility:public"],
     deps = [
         ":fmt_internal",
+        ":invoke_internal",
     ],
 )
