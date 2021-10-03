@@ -1,32 +1,38 @@
 load("@rules_cc//cc:defs.bzl", "cc_library")
 
 cc_library(
-    name = "fmt_internal",
+    name = "fmt",
     srcs = glob(["src/quill/bundled/fmt/**/*.cpp"]),
     hdrs = glob(["include/quill/bundled/fmt/**/*.h"]),
     # includes = [
-    #     "include/quill/bundled",
+    #     "include",
     # ],
-    #linkstatic = True,
+    # linkstatic = True,
 )
 
 cc_library(
-    name = "invoke_internal",
+    name = "invoke",
     hdrs = glob(["include/quill/bundled/invoke/**/*.h"]),
     # includes = [
-    #     "include/quill/bundled",
+    #     "include",
     # ],
-    #linkstatic = True,
+    # linkstatic = True,
 )
 
 cc_library(
     name = "quill",
-    srcs = glob([
-        "src/**/*.cpp",
-    ], exclude = glob(["src/quill/bundled/**"])),
-    hdrs = glob([
-        "include/**/*.h",
-    ], exclude = glob(["src/quill/bundled/**"])),
+    srcs = glob(
+        [
+            "src/**/*.cpp",
+        ],
+        exclude = glob(["src/quill/bundled/**"]),
+    ),
+    hdrs = glob(
+        [
+            "include/**/*.h",
+        ],
+        exclude = glob(["include/quill/bundled/**"]),
+    ),
     defines = [
         #"QUILL_NO_EXCEPTIONS=1",
         #"QUILL_DISABLE_NON_PREFIX_MACROS=1",
@@ -43,19 +49,25 @@ cc_library(
     linkstatic = True,
     visibility = ["//visibility:public"],
     deps = [
-        ":fmt_internal",
-        ":invoke_internal",
+        ":fmt",
+        ":invoke",
     ],
 )
 
 cc_library(
     name = "quill_noexcept",
-    srcs = glob([
-        "src/**/*.cpp",
-    ], exclude = glob(["src/quill/bundled/**"])),
-    hdrs = glob([
-        "include/**/*.h",
-    ], exclude = glob(["src/quill/bundled/**"])),
+    srcs = glob(
+        [
+            "src/**/*.cpp",
+        ],
+        exclude = glob(["src/quill/bundled/**"]),
+    ),
+    hdrs = glob(
+        [
+            "include/**/*.h",
+        ],
+        exclude = glob(["include/quill/bundled/**"]),
+    ),
     defines = [
         "QUILL_NO_EXCEPTIONS=1",
         #"QUILL_DISABLE_NON_PREFIX_MACROS=1",
@@ -72,7 +84,7 @@ cc_library(
     linkstatic = True,
     visibility = ["//visibility:public"],
     deps = [
-        ":fmt_internal",
-        ":invoke_internal",
+        ":fmt",
+        ":invoke",
     ],
 )
