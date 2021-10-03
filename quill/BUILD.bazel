@@ -1,23 +1,23 @@
 load("@rules_cc//cc:defs.bzl", "cc_library")
 
-cc_library(
-    name = "fmt",
-    srcs = glob(["src/quill/bundled/fmt/**/*.cpp"]),
-    hdrs = glob(["include/quill/bundled/fmt/**/*.h"]),
-    # includes = [
-    #     "include",
-    # ],
-    # linkstatic = True,
-)
-
-cc_library(
-    name = "invoke",
-    hdrs = glob(["include/quill/bundled/invoke/**/*.h"]),
-    # includes = [
-    #     "include",
-    # ],
-    # linkstatic = True,
-)
+# cc_library(
+#     name = "fmt",
+#     srcs = glob(["src/quill/bundled/fmt/**/*.cpp"]),
+#     hdrs = glob(["include/quill/bundled/fmt/**/*.h"]),
+#     includes = [
+#         "include/quill/bundled",
+#     ],
+#     linkstatic = True,
+# )
+#
+# cc_library(
+#     name = "invoke",
+#     hdrs = glob(["include/quill/bundled/invoke/**/*.h"]),
+#     # includes = [
+#     #     "include",
+#     # ],
+#     linkstatic = True,
+# )
 
 cc_library(
     name = "quill",
@@ -25,13 +25,13 @@ cc_library(
         [
             "src/**/*.cpp",
         ],
-        exclude = glob(["src/quill/bundled/**"]),
+        #exclude = glob(["src/quill/bundled/fmt/**"]),
     ),
     hdrs = glob(
         [
             "include/**/*.h",
         ],
-        exclude = glob(["include/quill/bundled/**"]),
+        #exclude = glob(["include/quill/bundled/fmt/**"]),
     ),
     defines = [
         #"QUILL_NO_EXCEPTIONS=1",
@@ -49,8 +49,8 @@ cc_library(
     linkstatic = True,
     visibility = ["//visibility:public"],
     deps = [
-        ":fmt",
-        ":invoke",
+        # ":fmt",
+        # ":invoke",
     ],
 )
 
@@ -60,13 +60,13 @@ cc_library(
         [
             "src/**/*.cpp",
         ],
-        exclude = glob(["src/quill/bundled/**"]),
+        # exclude = glob(["src/quill/bundled/**"]),
     ),
     hdrs = glob(
         [
             "include/**/*.h",
         ],
-        exclude = glob(["include/quill/bundled/**"]),
+        # exclude = glob(["include/quill/bundled/**"]),
     ),
     defines = [
         "QUILL_NO_EXCEPTIONS=1",
@@ -84,7 +84,7 @@ cc_library(
     linkstatic = True,
     visibility = ["//visibility:public"],
     deps = [
-        ":fmt",
-        ":invoke",
+        # ":fmt",
+        # ":invoke",
     ],
 )
